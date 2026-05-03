@@ -15,14 +15,15 @@
 ### B. Структура проекта
 
 - [x] Монорепо: `web/` (Next.js 14), `bot/` (aiogram 3), `supabase/migrations/`, корневые `.gitignore`, `.env.example`
-- [ ] `git init` (на машине нет Git в PATH — установить и выполнить вручную)
+- [x] `git init` + первый коммит (у разработчика)
 
 ### C. Supabase
 
-- [ ] Создать проект Supabase
-- [ ] SQL: таблицы users, models, invite_links, model_requests, deposits, notifications
-- [ ] RLS, Storage (если файлы через Supabase Storage)
-- [ ] Ключи в `.env` / Vercel / Render
+- [ ] Создать проект Supabase (вручную в dashboard)
+- [x] SQL-миграция в репо: `supabase/migrations/001_initial_schema.sql` (таблицы + `app_settings` + `complaints` + `v_models_public` + RLS + бакет `uploads`)
+- [ ] Выполнить SQL в Supabase (SQL Editor) и проверить таблицы
+- [ ] Политики RLS для anon (после Telegram) — шаг F/G; при необходимости донастроить Storage policies
+- [ ] Скопировать URL/anon/service role в `web/.env.local` и `bot/.env`; зафиксировать в Vercel/Render позже
 
 ### D. Next.js
 
@@ -33,14 +34,16 @@
 
 ### E. Компоненты WebApp
 
-- [ ] Главная (сетка карточек)
-- [ ] `/model/[id]`
-- [ ] `/register` (инвайт)
-- [ ] `/admin` (разделы по ТЗ)
+- [x] Главная (сетка карточек из `v_models_public`, Framer Motion)
+- [x] `/model/[id]` (карусель, цены с табами, контакты public / залог deposit)
+- [x] `/register` (инвайт, форма, заявка registration)
+- [x] `/admin` (вход по паролю, создание инвайта, таблицы инвайтов и заявок; Telegram ID — позже)
 
 ### F. Интеграция
 
-- [ ] Telegram Login Widget + связка с `users`
+- [x] Telegram Login Widget (`/login`), API `/api/auth/telegram`, cookie-сессия, `/account`
+- [ ] Подтверждение 18+ и выбор ника после первого входа
+- [ ] Домен бота в BotFather для продакшена (localhost ограничен)
 
 ### G. Приватность и залоги
 
@@ -60,7 +63,8 @@
 
 ### J. Переменные окружения
 
-- [ ] Документировать все ключи (Supabase, бот, админ ID, URL WebApp, кошельки USDT)
+- [x] Шаблон корневого `.env.example`
+- [ ] Заполненные секреты локально и на хостингах (Supabase, бот, админ ID, URL WebApp, USDT)
 
 ### K. Тестирование
 
@@ -68,9 +72,9 @@
 
 ## Текущий шаг
 
-**Сделано:** структура репозитория, Next.js + зависимости, каркас бота, `npm run build` проходит.
+**Сделано:** `/register?code=` (инвайт, форма, `model_requests`), `/admin/login` + `/admin/dashboard` (инвайты, список заявок), сессия по cookie.
 
-**Следующий шаг:** **C** — проект в Supabase, SQL таблиц, ключи в `.env` / шаблоне.
+**Дальше:** Telegram Login (F), оплата/скриншоты регистрации, политики Storage, проверка `ADMIN_TELEGRAM_ID` в админке.
 
 ---
 

@@ -1,6 +1,8 @@
-# Environment
+# Environment (секреты только здесь, не в .env.example)
 .env
 .env.local
+**/.env.local
+bot/.env
 .env.*.local
 
 # Node (monorepo)

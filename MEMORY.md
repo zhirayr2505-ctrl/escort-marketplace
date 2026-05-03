@@ -76,8 +76,21 @@
 - `model_requests` — id, model_id, type (`registration`|`monthly`), amount_usdt, screenshot_url, status, admin_notes
 - `deposits` — id, user_id, model_id, amount_usdt, selected_price_type, selected_price_value, screenshot_url, status (`pending`|`confirmed`|`rejected`|`refunded`), confirmed_by_admin, created_at
 - `notifications` — id, user_id, message, read, created_at
+- `app_settings` — key, value (jsonb): суммы, кошельки (дублируют админку / .env)
+- `complaints` — жалобы пользователей (связь с model/deposit опционально)
 
-Клиенты: Supabase JS (frontend), supabase-py (бот). RLS и политики — отдельным шагом после создания таблиц.
+Представление `v_models_public` — поля карточки **без** контактов и паспорта (для безопасного листинга).
+
+Клиенты: Supabase JS (frontend), supabase-py (бот). RLS включён; политики для `anon` — после Telegram Login (шаг F). До этого чтение/запись чувствительных данных — с сервера через **service_role** или Dashboard.
+
+### Supabase: что сделать руками
+
+1. Зайти на [supabase.com](https://supabase.com) → New project (регион ближе к пользователям; пароль БД сохранить в менеджере паролей).
+2. **Settings → API:** скопировать `Project URL`, `anon` **public** key, `service_role` **secret** (не в клиент, не в Git).
+3. **SQL → New query:** открыть файл репозитория `supabase/migrations/001_initial_schema.sql`, вставить целиком → **Run**. Ошибок быть не должно; при повторном запуске возможны конфликты «already exists» — тогда только на чистой БД или править вручную.
+4. **Storage:** бакет `uploads` создаётся скриптом; позже настроить политики загрузки (после auth).
+5. Секреты **не** хранить в `.env.example` (он в Git). Скопировать шаблон в `web/.env.local` и при необходимости в `bot/.env`, подставить ключи. Минимум для фронта: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Где взять: **Project Settings → Data API / API Keys**.
+6. Первого админ-пользователя в `users` с `role = 'admin'` и твоим `telegram_id` добавим после интеграции бота/виджета или вручную через SQL **Table Editor**.
 
 ## Принятые решения (журнал)
 
@@ -85,11 +98,15 @@
 |------|---------|
 | (старт) | Документация MEMORY / PROGRESS / STRUCTURE созданы; реализация по шагам A→K из PROGRESS |
 | 2026-05-02 | Монорепо: `web/` (Next 14), `bot/`, `supabase/migrations/`. Для Supabase в Next используется `@supabase/ssr` (cookie-сессии) + `@supabase/supabase-js`. Корневой `.gitignore` дополняет `web/.gitignore`. |
+| 2026-05-02 | Схема БД в `001_initial_schema.sql`: таблицы из ТЗ + `app_settings`, `complaints`, view `v_models_public`, RLS без политик для anon, бакет `uploads`. |
+| 2026-05-02 | Демо-данные: `002_seed_demo_models.sql` (telegram_id 900000001–900000004, фото с picsum.photos). Страница модели: `/model/[id]`, залог пересчитывается от выбранного таба цены. |
+| 2026-05-02 | Регистрация: временный `telegram_id` отрицательный bigint до Telegram Login. Админ: cookie `admin-session` = sha256(PASSWORD:SECRET); позже добавить сверку `ADMIN_TELEGRAM_ID`. |
+| 2026-05-02 | Клиенты: Telegram Login Widget → POST `/api/auth/telegram`, проверка HMAC по `TELEGRAM_BOT_TOKEN`, cookie `mk_user` (подпись USER_SESSION_SECRET). |
 
 ## Открытые вопросы
 
-- Точный формат жалоб (таблица или поле в `deposits`/отдельная `complaints`).
-- Fake-рейтинг: статическое поле в `models` или захардкожено на UI до реальных отзывов.
+- ~~Жалобы~~: таблица `complaints` добавлена в миграции.
+- Fake-рейтинг: поле `models.rating_public` (по умолчанию 5.0), до реальных отзывов правится в админке или SQL.
 
 ---
 

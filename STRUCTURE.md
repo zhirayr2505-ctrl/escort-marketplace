@@ -49,7 +49,7 @@
 
 | Путь | Назначение |
 |------|------------|
-| `migrations/.gitkeep` | Сюда класть SQL миграции после создания таблиц в Supabase |
+| `migrations/001_initial_schema.sql` | Таблицы, view `v_models_public`, RLS, триггер `updated_at`, бакет Storage `uploads` |
 
 ## Поток данных
 
