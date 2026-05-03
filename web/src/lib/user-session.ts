@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
 
+/** Имя cookie сессии пользователя (дублируется строкой в `middleware.ts` — Edge не импортирует этот модуль). */
 export const USER_SESSION_COOKIE = "mk_user";
 
 function sessionSecret(): string {

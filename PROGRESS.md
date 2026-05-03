@@ -42,7 +42,7 @@
 ### F. Интеграция
 
 - [x] Telegram Login Widget (`/login`), API `/api/auth/telegram`, cookie-сессия, `/account`
-- [ ] Подтверждение 18+ и выбор ника после первого входа
+- [x] Подтверждение 18+ и выбор ника после первого входа (`/onboarding`, middleware → редирект)
 - [ ] Домен бота в BotFather для продакшена (localhost ограничен)
 
 ### G. Приватность и залоги
@@ -74,7 +74,7 @@
 
 **Сделано:** `/register?code=` (инвайт, форма, `model_requests`), `/admin/login` + `/admin/dashboard` (инвайты, список заявок), сессия по cookie.
 
-**Дальше:** Telegram Login (F), оплата/скриншоты регистрации, политики Storage, проверка `ADMIN_TELEGRAM_ID` в админке.
+**Дальше:** оплата/скриншоты регистрации (G), политики Storage, проверка `ADMIN_TELEGRAM_ID` в админке, бот (H).
 
 ---
 

@@ -42,10 +42,6 @@ export default async function AccountPage() {
         <div className="mt-10">
           <AccountLogoutButton />
         </div>
-
-        <p className="mt-8 text-xs text-neutral-500">
-          Подтверждение 18+ и выбор ника — следующий шаг. Сейчас имя берётся из Telegram.
-        </p>
       </main>
     </div>
   );

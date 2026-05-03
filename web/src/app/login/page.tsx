@@ -6,7 +6,7 @@ import { getCurrentUser } from "@/lib/current-user";
 export default async function LoginPage() {
   const user = await getCurrentUser();
   if (user) {
-    redirect("/account");
+    redirect(user.age_verified ? "/account" : "/onboarding");
   }
 
   const botName = process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME ?? "";

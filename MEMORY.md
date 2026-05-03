@@ -102,6 +102,7 @@
 | 2026-05-02 | Демо-данные: `002_seed_demo_models.sql` (telegram_id 900000001–900000004, фото с picsum.photos). Страница модели: `/model/[id]`, залог пересчитывается от выбранного таба цены. |
 | 2026-05-02 | Регистрация: временный `telegram_id` отрицательный bigint до Telegram Login. Админ: cookie `admin-session` = sha256(PASSWORD:SECRET); позже добавить сверку `ADMIN_TELEGRAM_ID`. |
 | 2026-05-02 | Клиенты: Telegram Login Widget → POST `/api/auth/telegram`, проверка HMAC по `TELEGRAM_BOT_TOKEN`, cookie `mk_user` (подпись USER_SESSION_SECRET). |
+| 2026-05-03 | После входа: страница `/onboarding` (18+ чекбокс + ник 2–40 символов), middleware редирект с любых страниц кроме `/login`, `/register`, `/admin`, `/api`, пока `users.age_verified = false`. После онбординга виджет Telegram не перезаписывает `display_name`. |
 
 ## Открытые вопросы
 

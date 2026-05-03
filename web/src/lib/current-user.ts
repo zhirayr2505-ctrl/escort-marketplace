@@ -8,6 +8,7 @@ export type CurrentUser = {
   username: string | null;
   display_name: string | null;
   role: string;
+  age_verified: boolean;
 };
 
 export async function getCurrentUser(): Promise<CurrentUser | null> {
@@ -20,7 +21,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
   const { data, error } = await supabase
     .from("users")
-    .select("id, telegram_id, username, display_name, role")
+    .select("id, telegram_id, username, display_name, role, age_verified")
     .eq("id", session.userId)
     .maybeSingle();
 

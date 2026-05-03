@@ -40,13 +40,18 @@ export async function POST(req: Request) {
   let userId: string;
 
   if (existing?.id) {
-    const { error: upErr } = await supabase
+    const { data: row } = await supabase
       .from("users")
-      .update({
-        username,
-        display_name: displayName,
-      })
-      .eq("id", existing.id);
+      .select("age_verified")
+      .eq("id", existing.id)
+      .maybeSingle();
+
+    const updates: { username: string | null; display_name?: string } = { username };
+    if (!row?.age_verified) {
+      updates.display_name = displayName;
+    }
+
+    const { error: upErr } = await supabase.from("users").update(updates).eq("id", existing.id);
 
     if (upErr) {
       return NextResponse.json({ error: upErr.message }, { status: 500 });
