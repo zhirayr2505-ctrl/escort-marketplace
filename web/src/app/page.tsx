@@ -10,61 +10,66 @@ export default async function Home() {
   const projectHost = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-black">
+    <div className="app-shell bg-transparent">
       <SiteHeader />
 
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="mb-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
-          Анкеты
-        </h1>
-        <p className="mb-8 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">
-          Каталог активных профилей. Если список пустой — в базе ещё нет моделей с{" "}
-          <code className="rounded bg-neutral-200 px-1 py-0.5 text-xs dark:bg-neutral-800">active = true</code>.
-        </p>
+      <main className="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6 sm:pt-8">
+        <div className="mb-8 sm:mb-10">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-app-accent/90">
+            каталог
+          </p>
+          <h1 className="app-title-gradient mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Анкеты
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-app-muted">
+            Подборка активных профилей. В Telegram Mini App интерфейс раскрывается на весь экран — как
+            отдельное приложение.
+          </p>
+        </div>
 
         {missingServiceKey && (
-          <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-100">
-            <p className="font-medium">Нет доступа к данным с сервера</p>
-            <p className="mt-1 text-amber-900/90 dark:text-amber-200/90">
-              Добавь в <code className="font-mono">web/.env.local</code> строку{" "}
-              <code className="font-mono">SUPABASE_SERVICE_ROLE_KEY=</code> (тот же секретный ключ, что в Supabase →
-              service_role). Перезапусти <code className="font-mono">npm run dev</code>.
+          <div className="mb-8 rounded-2xl border border-app-accent/25 bg-app-accent-dim p-4 text-sm text-app-text">
+            <p className="font-semibold text-app-accent">Нет доступа к данным с сервера</p>
+            <p className="mt-2 text-app-muted">
+              Добавь в <code className="rounded-md bg-black/25 px-1.5 py-0.5 font-mono text-xs">web/.env.local</code>{" "}
+              строку{" "}
+              <code className="rounded-md bg-black/25 px-1.5 py-0.5 font-mono text-xs">
+                SUPABASE_SERVICE_ROLE_KEY=
+              </code>{" "}
+              и перезапусти <code className="font-mono text-xs">npm run dev</code>.
             </p>
           </div>
         )}
 
         {fetchError && (
-          <div className="mb-8 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-950 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-100">
-            <p className="font-medium">Ошибка запроса к Supabase</p>
-            <p className="mt-1 font-mono text-xs opacity-90">{fetchError}</p>
+          <div className="mb-8 rounded-2xl border border-red-400/30 bg-red-950/35 p-4 text-sm text-red-100">
+            <p className="font-semibold">Ошибка запроса к Supabase</p>
+            <p className="mt-2 font-mono text-xs opacity-90">{fetchError}</p>
           </div>
         )}
 
         {!fetchError && models.length === 0 && !missingServiceKey && (
-          <div className="mb-8 rounded-xl border border-neutral-200 bg-neutral-100/80 p-4 text-sm text-neutral-800 dark:border-neutral-700 dark:bg-neutral-900/50 dark:text-neutral-200">
-            <p className="font-medium">Список пустой, но подключение есть</p>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-neutral-700 dark:text-neutral-300">
+          <div className="mb-8 rounded-2xl border border-app-border/40 bg-app-surface/50 p-4 text-sm text-app-muted">
+            <p className="font-medium text-app-text">Список пустой, но подключение есть</p>
+            <ul className="mt-3 list-inside list-disc space-y-1.5">
               <li>
-                SQL с демо нужно выполнить <strong>целиком</strong> (и DELETE, и INSERT) в том же проекте, что в{" "}
-                <code className="rounded bg-white px-1 dark:bg-neutral-800">.env.local</code>.
+                Выполни SQL с демо <strong className="text-app-text">целиком</strong> в том же проекте, что в env.
               </li>
               <li>
-                Проверь в Table Editor: таблица <code className="rounded bg-white px-1 dark:bg-neutral-800">models</code>{" "}
-                — есть строки с <code className="rounded bg-white px-1 dark:bg-neutral-800">active = true</code>.
+                В Table Editor: <code className="rounded bg-black/30 px-1 font-mono text-xs">models</code> с{" "}
+                <code className="rounded bg-black/30 px-1 font-mono text-xs">active = true</code>.
               </li>
               <li className="break-all">
-                Сейчас в приложении указан проект:{" "}
-                <code className="rounded bg-white px-1 dark:bg-neutral-800">{projectHost || "(нет URL)"}</code>
+                Проект:{" "}
+                <code className="rounded bg-black/30 px-1 font-mono text-[11px]">{projectHost || "(нет URL)"}</code>
               </li>
             </ul>
           </div>
         )}
 
         {models.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-neutral-300 bg-white p-12 text-center dark:border-neutral-700 dark:bg-neutral-950">
-            <p className="text-neutral-600 dark:text-neutral-400">
-              Пока нет анкет. После добавления моделей в Supabase они появятся здесь.
-            </p>
+          <div className="rounded-[1.35rem] border border-dashed border-app-border/45 bg-app-surface/40 p-12 text-center text-app-muted">
+            Пока нет анкет — добавь модели в Supabase.
           </div>
         ) : (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

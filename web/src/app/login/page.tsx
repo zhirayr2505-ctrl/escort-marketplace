@@ -12,27 +12,27 @@ export default async function LoginPage() {
   const botName = process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME ?? "";
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-black">
-      <header className="border-b border-neutral-200 bg-white/80 dark:border-neutral-800 dark:bg-neutral-950/80">
+    <div className="app-shell bg-transparent">
+      <header className="border-b border-app-border/40 bg-app-header/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-lg items-center px-4 py-4">
-          <Link href="/" className="text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400">
+          <Link href="/" className="text-sm font-medium text-app-muted transition hover:text-app-accent">
             ← На главную
           </Link>
         </div>
       </header>
 
       <main className="mx-auto max-w-lg px-4 py-12">
-        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Вход</h1>
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-          Войди через Telegram — так мы свяжем аккаунт с твоим профилем для залогов и уведомлений.
+        <h1 className="app-title-gradient text-3xl font-semibold tracking-tight">Вход</h1>
+        <p className="mt-3 text-sm leading-relaxed text-app-muted">
+          Войди через Telegram — аккаунт нужен для залогов и уведомлений. В Mini App удобнее открыть каталог из бота.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="mt-8 rounded-[1.35rem] border border-app-border/40 bg-app-surface/60 p-6 backdrop-blur-sm">
           <TelegramLoginButton botUsername={botName} />
         </div>
 
-        <p className="mt-6 text-xs text-neutral-500">
-          На сервере проверяется подпись Telegram (TELEGRAM_BOT_TOKEN). Бот должен быть тем же, что и для виджета.
+        <p className="mt-6 text-xs leading-relaxed text-app-muted">
+          На сервере проверяется подпись Telegram (<code className="font-mono text-[11px] text-app-accent/90">TELEGRAM_BOT_TOKEN</code>). Домен сайта должен быть добавлен у BotFather для виджета.
         </p>
       </main>
     </div>

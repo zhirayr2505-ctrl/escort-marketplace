@@ -28,13 +28,13 @@ export function ModelContactBlock({ model, selectedTab }: Props) {
 
   if (isPublic) {
     return (
-      <div className="space-y-3 rounded-2xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-        <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Контакты</h3>
+      <div className="space-y-4 rounded-2xl border border-app-border/40 bg-app-surface/60 p-5 backdrop-blur-sm">
+        <h3 className="text-sm font-semibold text-app-text">Контакты</h3>
         <div className="flex flex-col gap-2 text-sm">
           {model.contacts_telegram && (
             <a
               href={`https://t.me/${model.contacts_telegram.replace(/^@/, "")}`}
-              className="rounded-xl bg-[#229ED9] px-4 py-2.5 text-center font-medium text-white"
+              className="rounded-xl bg-[#229ED9] px-4 py-2.5 text-center font-semibold text-white shadow-lg shadow-[#229ED9]/25"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -44,7 +44,7 @@ export function ModelContactBlock({ model, selectedTab }: Props) {
           {model.contacts_whatsapp && (
             <a
               href={`https://wa.me/${model.contacts_whatsapp.replace(/\D/g, "")}`}
-              className="rounded-xl bg-[#25D366] px-4 py-2.5 text-center font-medium text-white"
+              className="rounded-xl bg-[#25D366] px-4 py-2.5 text-center font-semibold text-white shadow-lg shadow-[#25D366]/25"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -52,7 +52,10 @@ export function ModelContactBlock({ model, selectedTab }: Props) {
             </a>
           )}
           {model.contacts_phone && (
-            <a href={`tel:${model.contacts_phone}`} className="rounded-xl border border-neutral-300 py-2.5 text-center dark:border-neutral-600">
+            <a
+              href={`tel:${model.contacts_phone}`}
+              className="rounded-xl border border-app-border/45 bg-app-bg/40 py-2.5 text-center font-medium text-app-text"
+            >
               {model.contacts_phone}
             </a>
           )}
@@ -62,19 +65,19 @@ export function ModelContactBlock({ model, selectedTab }: Props) {
   }
 
   return (
-    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/30">
-      <h3 className="text-sm font-semibold text-amber-950 dark:text-amber-100">Контакты по залогу</h3>
-      <p className="mt-1 text-sm text-amber-900/90 dark:text-amber-200/90">
+    <div className="rounded-2xl border border-app-accent/30 bg-app-accent-dim p-5">
+      <h3 className="text-sm font-semibold text-app-accent">Контакты по залогу</h3>
+      <p className="mt-2 text-sm leading-relaxed text-app-muted">
         Модель открывает контакты после подтверждения залога{" "}
-        <strong>{model.deposit_percent}%</strong> от выбранной цены (сейчас ориентир ~${deposit} USDT за выбранный
-        период).
+        <strong className="text-app-text">{model.deposit_percent}%</strong> от выбранной цены (ориентир ~$
+        {deposit} USDT).
       </p>
       <button
         type="button"
         disabled
-        className="mt-3 w-full rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white opacity-60 dark:bg-neutral-100 dark:text-neutral-900"
+        className="mt-4 w-full cursor-not-allowed rounded-xl border border-app-border/35 bg-app-surface/40 py-3 text-sm font-medium text-app-muted opacity-70"
       >
-        Получить контакты (скоро: оплата и скриншот)
+        Получить контакты (скоро)
       </button>
     </div>
   );

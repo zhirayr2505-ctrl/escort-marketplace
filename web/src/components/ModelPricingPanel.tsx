@@ -22,7 +22,7 @@ export function ModelPricingPanel({ model }: Props) {
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="mb-3 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Цены</h2>
+        <h2 className="mb-4 text-lg font-semibold text-app-text">Цены</h2>
         <ModelPriceTabs prices={prices} tab={tab} onTabChange={setTab} />
       </section>
       <ModelContactBlock model={model} selectedTab={tab} />

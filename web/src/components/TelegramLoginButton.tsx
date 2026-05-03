@@ -59,7 +59,7 @@ export function TelegramLoginButton({ botUsername }: Props) {
 
   if (!botUsername) {
     return (
-      <p className="text-sm text-amber-800 dark:text-amber-200">
+      <p className="text-sm text-app-accent">
         Задай NEXT_PUBLIC_TELEGRAM_BOT_NAME в .env.local (username бота без @).
       </p>
     );
@@ -67,9 +67,9 @@ export function TelegramLoginButton({ botUsername }: Props) {
 
   return (
     <div className="space-y-3">
-      <div ref={containerRef} className="flex min-h-[44px] items-center" />
-      {loading && <p className="text-sm text-neutral-500">Вход…</p>}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      <div ref={containerRef} className="flex min-h-[44px] items-center [&_iframe]:!rounded-xl" />
+      {loading && <p className="text-sm text-app-muted">Вход…</p>}
+      {error && <p className="text-sm text-red-400">{error}</p>}
     </div>
   );
 }

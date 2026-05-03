@@ -18,45 +18,40 @@ export function ModelCard({ model, index }: Props) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: index * 0.05 }}
-      className="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="app-card-ring flex flex-col overflow-hidden rounded-[1.35rem] border border-app-border/50 bg-app-surface/75 backdrop-blur-md"
     >
-      <div className="relative aspect-[3/4] w-full bg-neutral-100 dark:bg-neutral-900">
+      <div className="relative aspect-[3/4] w-full bg-black/40">
         {cover ? (
-          // eslint-disable-next-line @next/next/no-img-element -- внешние URL из Storage без белого списка в next.config
-          <img
-            src={cover}
-            alt=""
-            className="h-full w-full object-cover"
-          />
+          // eslint-disable-next-line @next/next/no-img-element -- внешние URL из Storage
+          <img src={cover} alt="" className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm text-neutral-400">
+          <div className="flex h-full w-full items-center justify-center text-sm text-app-muted">
             нет фото
           </div>
         )}
-      </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h2 className="text-lg font-semibold leading-tight text-neutral-900 dark:text-neutral-100">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+          <span className="truncate text-lg font-semibold tracking-tight text-white drop-shadow-md">
             {model.name}
-          </h2>
-          <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-100">
+          </span>
+          <span className="shrink-0 rounded-full border border-app-accent/35 bg-black/45 px-2 py-0.5 text-[11px] font-semibold text-app-accent backdrop-blur-sm">
             ★ {Number(model.rating_public ?? 5).toFixed(1)}
           </span>
         </div>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-4 pt-3">
+        <p className="text-sm text-app-muted">
           {model.age} лет
           {model.city ? ` · ${model.city}` : ""}
         </p>
-        <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200">
-          от {formatMoney(model.price_hour)} / час
+        <p className="text-[15px] font-medium text-app-text">
+          от <span className="text-app-accent">{formatMoney(model.price_hour)}</span>
+          <span className="text-app-muted"> / час</span>
         </p>
-        <Link
-          href={`/model/${model.id}`}
-          className="mt-auto inline-flex items-center justify-center rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white"
-        >
+        <Link href={`/model/${model.id}`} className="app-btn-primary mt-auto w-full text-center">
           Подробнее
         </Link>
       </div>

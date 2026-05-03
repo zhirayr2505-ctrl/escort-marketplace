@@ -37,16 +37,16 @@ export function ModelPriceTabs({ prices, tab: controlledTab, onTabChange }: Prop
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 border-b border-neutral-200 pb-2 dark:border-neutral-800">
+      <div className="flex flex-wrap gap-2 border-b border-app-border/35 pb-3">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+            className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
               tab === t.id
-                ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                ? "border border-app-accent/45 bg-app-accent-dim text-app-accent shadow-app-glow"
+                : "border border-transparent text-app-muted hover:border-app-border/40 hover:bg-app-surface/60 hover:text-app-text"
             }`}
           >
             {t.label}
@@ -55,11 +55,11 @@ export function ModelPriceTabs({ prices, tab: controlledTab, onTabChange }: Prop
       </div>
       <motion.div
         key={tab}
-        initial={{ opacity: 0, y: 4 }}
+        initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-4 text-2xl font-semibold text-neutral-900 dark:text-neutral-100"
+        className="mt-5 text-3xl font-semibold tracking-tight text-app-text"
       >
-        {formatPrice(prices[tab])}
+        <span className="text-app-accent">{formatPrice(prices[tab])}</span>
       </motion.div>
     </div>
   );

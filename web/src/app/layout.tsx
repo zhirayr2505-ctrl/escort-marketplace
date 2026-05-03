@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
+import { TelegramWebAppProvider } from "@/components/TelegramWebAppProvider";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -16,6 +18,20 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Маркетплейс",
   description: "Каталог объявлений",
+  appleWebApp: {
+    capable: true,
+    title: "Маркетплейс",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#09080c",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -25,10 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
+        <TelegramWebAppProvider>{children}</TelegramWebAppProvider>
       </body>
     </html>
   );

@@ -3,25 +3,85 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: var(--app-bg);
+  --foreground: var(--app-text);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --app-bg: #09080c;
+  --app-bg-gradient-mid: #120f18;
+  --app-surface: #16131f;
+  --app-border: rgba(232, 200, 114, 0.18);
+  --app-accent: #e6cf87;
+  --app-accent-dim: rgba(230, 207, 135, 0.12);
+  --app-on-accent: #141109;
+  --app-text: #f7f2ea;
+  --app-muted: #958f85;
+  --app-header-bg: rgba(9, 8, 12, 0.78);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply min-h-[100dvh] antialiased;
+  color: var(--app-text);
+  background-color: var(--app-bg);
+}
+
+/* Mini App: полноэкранное ощущение + мягкие блики (не зависит от Telegram-темы как от обязательной) */
+body.tg-mini-app {
+  background-image:
+    radial-gradient(ellipse 130% 90% at 50% -25%, rgba(230, 207, 135, 0.11), transparent 52%),
+    radial-gradient(ellipse 55% 45% at 100% 15%, rgba(160, 110, 180, 0.07), transparent 50%),
+    radial-gradient(ellipse 45% 40% at 0% 80%, rgba(230, 207, 135, 0.05), transparent 48%),
+    linear-gradient(165deg, var(--app-bg-gradient-mid) 0%, var(--app-bg) 52%);
+  background-attachment: fixed;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .app-shell {
+    @apply min-h-[100dvh];
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .app-title-gradient {
+    background: linear-gradient(
+      105deg,
+      var(--app-text) 0%,
+      color-mix(in oklab, var(--app-accent) 78%, white) 48%,
+      color-mix(in oklab, var(--app-accent) 55%, var(--app-text)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .app-card-ring {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--app-accent) 22%, transparent),
+      0 20px 50px -22px rgba(0, 0, 0, 0.65),
+      0 0 48px -28px color-mix(in oklab, var(--app-accent) 22%, transparent);
+  }
+
+  .app-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--app-accent) 92%, white) 0%,
+      var(--app-accent) 48%,
+      color-mix(in oklab, var(--app-accent) 85%, #2a2214) 100%
+    );
+    color: var(--app-on-accent);
+    box-shadow: 0 10px 28px -10px color-mix(in oklab, var(--app-accent) 55%, transparent);
+  }
+
+  .app-btn-primary:hover {
+    filter: brightness(1.06);
+  }
+
+  .app-btn-primary:active {
+    transform: scale(0.98);
   }
 }

@@ -18,20 +18,19 @@ export default async function OnboardingPage() {
     `user_${user.telegram_id}`;
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-black">
-      <header className="border-b border-neutral-200 bg-white/80 dark:border-neutral-800 dark:bg-neutral-950/80">
+    <div className="app-shell bg-transparent">
+      <header className="border-b border-app-border/40 bg-app-header/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-lg items-center px-4 py-4">
-          <Link href="/" className="text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-400">
+          <Link href="/" className="text-sm font-medium text-app-muted transition hover:text-app-accent">
             ← На главную
           </Link>
         </div>
       </header>
 
       <main className="mx-auto max-w-lg px-4 py-10">
-        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
-          Один шаг до кабинета
-        </h1>
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-app-accent/90">онбординг</p>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-app-text">Один шаг до кабинета</h1>
+        <p className="mt-3 text-sm leading-relaxed text-app-muted">
           Подтверди возраст и при желании задай ник — так мы отображаем тебя в интерфейсе.
         </p>
 

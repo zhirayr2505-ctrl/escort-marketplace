@@ -13,14 +13,24 @@ export function UserMenuClient({ displayName }: { displayName: string }) {
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="max-w-[140px] truncate text-neutral-800 dark:text-neutral-200" title={displayName}>
+    <div className="flex items-center gap-2 sm:gap-3">
+      <span
+        className="max-w-[120px] truncate text-xs font-medium text-app-text sm:max-w-[160px] sm:text-sm"
+        title={displayName}
+      >
         {displayName}
       </span>
-      <Link href="/account" className="hover:underline">
+      <Link
+        href="/account"
+        className="rounded-full border border-app-border/45 bg-app-surface/60 px-2.5 py-1 text-[11px] font-semibold text-app-accent transition hover:border-app-accent/50 sm:text-xs"
+      >
         Кабинет
       </Link>
-      <button type="button" onClick={() => void logout()} className="text-red-600 hover:underline dark:text-red-400">
+      <button
+        type="button"
+        onClick={() => void logout()}
+        className="text-[11px] font-medium text-red-400/95 hover:text-red-300 sm:text-xs"
+      >
         Выйти
       </button>
     </div>

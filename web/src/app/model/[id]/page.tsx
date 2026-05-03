@@ -16,24 +16,26 @@ export default async function ModelPage({ params }: Props) {
   const videos = model.videos ?? [];
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-black">
+    <div className="app-shell bg-transparent">
       <SiteHeader />
 
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <main className="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr]">
           <div>
             <ModelMediaCarousel photos={photos} videos={videos} name={model.name} />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
               <div className="flex flex-wrap items-baseline gap-3">
-                <h1 className="text-3xl font-semibold text-neutral-900 dark:text-neutral-100">{model.name}</h1>
-                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-100">
+                <h1 className="app-title-gradient text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {model.name}
+                </h1>
+                <span className="rounded-full border border-app-accent/35 bg-app-accent-dim px-2.5 py-0.5 text-sm font-semibold text-app-accent">
                   ★ {Number(model.rating_public ?? 5).toFixed(1)}
                 </span>
               </div>
-              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              <p className="mt-3 text-app-muted">
                 {model.age} лет
                 {model.city ? ` · ${model.city}` : ""}
                 {model.nationality ? ` · ${model.nationality}` : ""}
@@ -41,16 +43,20 @@ export default async function ModelPage({ params }: Props) {
             </div>
 
             {model.description && (
-              <section>
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">О себе</h2>
-                <p className="mt-2 text-neutral-800 dark:text-neutral-200">{model.description}</p>
+              <section className="rounded-2xl border border-app-border/35 bg-app-surface/55 p-5 backdrop-blur-sm">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">
+                  О себе
+                </h2>
+                <p className="mt-3 leading-relaxed text-app-text/95">{model.description}</p>
               </section>
             )}
 
             {model.preferences && (
-              <section>
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">Предпочтения</h2>
-                <p className="mt-2 text-neutral-800 dark:text-neutral-200">{model.preferences}</p>
+              <section className="rounded-2xl border border-app-border/35 bg-app-surface/55 p-5 backdrop-blur-sm">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">
+                  Предпочтения
+                </h2>
+                <p className="mt-3 leading-relaxed text-app-text/95">{model.preferences}</p>
               </section>
             )}
 

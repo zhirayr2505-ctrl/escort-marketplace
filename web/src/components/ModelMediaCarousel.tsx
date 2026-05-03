@@ -23,7 +23,7 @@ export function ModelMediaCarousel({ photos, videos, name }: Props) {
 
   if (items.length === 0) {
     return (
-      <div className="flex aspect-[3/4] w-full items-center justify-center rounded-2xl bg-neutral-100 text-neutral-500 dark:bg-neutral-900">
+      <div className="flex aspect-[3/4] w-full items-center justify-center rounded-[1.35rem] border border-app-border/35 bg-app-surface/50 text-app-muted">
         Нет медиа
       </div>
     );
@@ -31,7 +31,7 @@ export function ModelMediaCarousel({ photos, videos, name }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-900">
+      <div className="app-card-ring relative aspect-[3/4] w-full overflow-hidden rounded-[1.35rem] bg-black/35">
         <AnimatePresence mode="wait">
           <motion.div
             key={current.key}
@@ -56,6 +56,7 @@ export function ModelMediaCarousel({ photos, videos, name }: Props) {
             )}
           </motion.div>
         </AnimatePresence>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
       </div>
       {items.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
@@ -66,15 +67,15 @@ export function ModelMediaCarousel({ photos, videos, name }: Props) {
               onClick={() => setIndex(i)}
               className={`relative h-16 w-14 shrink-0 overflow-hidden rounded-lg border-2 transition ${
                 i === index
-                  ? "border-neutral-900 dark:border-neutral-100"
-                  : "border-transparent opacity-70 hover:opacity-100"
+                  ? "border-app-accent shadow-app-glow"
+                  : "border-transparent opacity-65 hover:opacity-100"
               }`}
             >
               {item.type === "photo" ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.src} alt="" className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-neutral-800 text-xs text-white">
+                <div className="flex h-full w-full items-center justify-center bg-app-surface text-xs text-app-accent">
                   ▶
                 </div>
               )}

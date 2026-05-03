@@ -11,7 +11,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-xl bg-neutral-900 py-3 text-sm font-medium text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
+      className="app-btn-primary w-full py-3 disabled:opacity-50"
     >
       {pending ? "Отправка…" : "Отправить анкету"}
     </button>
@@ -25,7 +25,7 @@ export function RegisterForm({ inviteCode }: Props) {
 
   if (state?.ok) {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 text-green-950 dark:border-green-900/50 dark:bg-green-950/30 dark:text-green-100">
+      <div className="rounded-2xl border border-emerald-400/35 bg-emerald-950/40 p-6 text-emerald-50">
         <p className="font-medium">Анкета принята</p>
         <p className="mt-2 text-sm opacity-90">
           Дальше — оплата регистрации и загрузка скриншота (будет в следующем шаге). Заявка у админа в статусе «ожидает оплаты».
@@ -39,67 +39,67 @@ export function RegisterForm({ inviteCode }: Props) {
       <input type="hidden" name="code" value={inviteCode} />
 
       {state && !state.ok && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-900 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-100">
+        <div className="rounded-xl border border-red-400/35 bg-red-950/40 p-3 text-sm text-red-100">
           {state.error}
         </div>
       )}
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-neutral-500">Основное</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">Основное</h2>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Имя / псевдоним</span>
+          <span className="text-sm text-app-muted">Имя / псевдоним</span>
           <input
             name="name"
             required
-            className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+            className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Возраст</span>
+          <span className="text-sm text-app-muted">Возраст</span>
           <input
             name="age"
             type="number"
             min={18}
             required
-            className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+            className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Город</span>
+          <span className="text-sm text-app-muted">Город</span>
           <input
             name="city"
             required
-            className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+            className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Национальность</span>
-          <input name="nationality" className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950" />
+          <span className="text-sm text-app-muted">Национальность</span>
+          <input name="nationality" className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2" />
         </label>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-neutral-500">Тексты</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">Тексты</h2>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">О себе</span>
+          <span className="text-sm text-app-muted">О себе</span>
           <textarea
             name="description"
             rows={3}
-            className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+            className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Предпочтения</span>
+          <span className="text-sm text-app-muted">Предпочтения</span>
           <textarea
             name="preferences"
             rows={2}
-            className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+            className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           />
         </label>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-neutral-500">Цены (USDT)</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">Цены (USDT)</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {(
             [
@@ -112,13 +112,13 @@ export function RegisterForm({ inviteCode }: Props) {
             ] as const
           ).map(([name, label]) => (
             <label key={name} className="block">
-              <span className="text-sm text-neutral-600 dark:text-neutral-400">{label}</span>
+              <span className="text-sm text-app-muted">{label}</span>
               <input
                 name={name}
                 type="number"
                 min={0}
                 step="0.01"
-                className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+                className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
               />
             </label>
           ))}
@@ -126,10 +126,10 @@ export function RegisterForm({ inviteCode }: Props) {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-neutral-500">Приватность контактов</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">Приватность контактов</h2>
         <select
           name="privacy_contacts"
-          className="w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950"
+          className="w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2"
           defaultValue="deposit"
         >
           <option value="public">Видны всем сразу</option>
@@ -138,22 +138,22 @@ export function RegisterForm({ inviteCode }: Props) {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-neutral-500">Контакты</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-app-accent/90">Контакты</h2>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Telegram</span>
-          <input name="contacts_telegram" placeholder="@username" className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950" />
+          <span className="text-sm text-app-muted">Telegram</span>
+          <input name="contacts_telegram" placeholder="@username" className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2" />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">WhatsApp</span>
-          <input name="contacts_whatsapp" className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950" />
+          <span className="text-sm text-app-muted">WhatsApp</span>
+          <input name="contacts_whatsapp" className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2" />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Телефон</span>
-          <input name="contacts_phone" className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-neutral-950" />
+          <span className="text-sm text-app-muted">Телефон</span>
+          <input name="contacts_phone" className="mt-1 w-full rounded-xl border border-app-border/45 bg-app-surface/40 px-3 py-2 text-app-text outline-none ring-app-accent/25 focus:ring-2" />
         </label>
       </section>
 
-      <p className="text-xs text-neutral-500">
+      <p className="text-xs text-app-muted">
         Фото, видео и документы добавим на следующем шаге (загрузка в Storage).
       </p>
 
