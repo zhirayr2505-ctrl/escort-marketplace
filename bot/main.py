@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+from pathlib import Path
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
@@ -8,8 +9,9 @@ from dotenv import load_dotenv
 
 from handlers import setup_routers
 
+_BOT_DIR = Path(__file__).resolve().parent
 logging.basicConfig(level=logging.INFO)
-load_dotenv()
+load_dotenv(_BOT_DIR / ".env")
 
 
 async def main() -> None:
