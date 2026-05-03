@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv
 
@@ -19,7 +20,7 @@ async def main() -> None:
     if not token:
         raise RuntimeError("TELEGRAM_BOT_TOKEN is not set")
 
-    bot = Bot(token=token, parse_mode=ParseMode.HTML)
+    bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
     setup_routers(dp)
 
